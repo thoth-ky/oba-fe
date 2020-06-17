@@ -12,7 +12,7 @@ const Options = ({ choices = [], defaultChoice, changeHandler }) => (
 );
 
 const FormGroup = ({
-  label, type, placeholder, changeHandler, choices, as, defaultChoice, maxLength
+  label, type, placeholder, changeHandler, choices, as, defaultChoice, maxLength, accept,
 }) => (
   <Form.Group as={as} md="4">
     <Form.Label>{label}</Form.Label>
@@ -24,6 +24,7 @@ const FormGroup = ({
           onChange={(e) => changeHandler(e.target.value)}
           required
           max={maxLength}
+          accept={accept}
         />
       )
     }

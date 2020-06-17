@@ -28,21 +28,18 @@ const getFromApi = (path, dispatch, actionData, params = {}) => {
     .catch((error) => console.error({ error }));
 };
 
-const postToApi = (path, data = {}) => {
-  const url = `${config.apiUrl}${path}`;
-  alert(TOKEN)
+const sendFileToApi = (path, file) => {
+  const url = `${
+    config.apiUrl
+  }${path}`;
 
-  fetch(url, {
+  return fetch(url, {
     method: 'POST',
     headers: {
       Authorization: TOKEN,
     },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .then((payload) => {
-      return payload;
-    });
+    body: file,
+  });
 };
 
 
@@ -63,6 +60,6 @@ const sendData = (path, data) => {
 
 export {
   getFromApi,
-  postToApi,
+  sendFileToApi,
   sendData,
 };
