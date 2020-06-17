@@ -8,7 +8,7 @@ const updateState = (dispatch, action) => {
 const TOKEN = sessionStorage.getItem('access_token');
 
 const getFromApi = (path, dispatch, actionData, params = {}) => {
-  const url = `${config.apiUrl}${path}?${stringifyParams(params)}`;
+  const url = `${config.apiUrl}${path}`;
 
   fetch(url, {
     method: 'GET',
@@ -30,11 +30,11 @@ const getFromApi = (path, dispatch, actionData, params = {}) => {
 
 const postToApi = (path, data = {}) => {
   const url = `${config.apiUrl}${path}`;
+  alert(TOKEN)
 
   fetch(url, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
       Authorization: TOKEN,
     },
     body: JSON.stringify(data),
@@ -55,6 +55,7 @@ const sendData = (path, data) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: TOKEN,
     },
     body: JSON.stringify(data),
   });

@@ -1,6 +1,7 @@
 const initialState = {
   user: {},
-  business: {},
+  currentBusiness: {},
+  businesses: [],
   transactions: [],
 };
 

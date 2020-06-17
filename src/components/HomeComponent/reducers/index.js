@@ -1,1 +1,5 @@
-export { userReducer } from './homeReducer';
+export {
+  userReducer,
+  businessesReducer,
+  businessReducer,
+} from './homeReducer';

@@ -2,7 +2,20 @@ import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-function NavigationBar() {
+function NavigationBar({ isAuthenticated }) {
+  const AuthNav = () => (
+    <Nav className="mr-auto">
+      <Nav.Link as={Link} to="/signin">SignIn</Nav.Link>
+      <Nav.Link as={Link} to="/signup">SignUp</Nav.Link>
+    </Nav>
+  );
+
+  const NormalNav = () => (
+    <Nav className="mr-auto">
+      <Nav.Link as={Link} to="/">Home</Nav.Link>
+      <Nav.Link as={Link} to="/signout">SignOut</Nav.Link>
+    </Nav>
+  );
   return (
     <div style={{ justifyContent: 'space-evenly', width: '100%' }}>
       <Navbar
@@ -26,11 +39,9 @@ function NavigationBar() {
           />
           Offline Business Analyzer
         </Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Link as={Link} to="/">Home</Nav.Link>
-          <Nav.Link as={Link} to="/signin">SignIn</Nav.Link>
-          <Nav.Link as={Link} to="/signup">SignUp</Nav.Link>
-        </Nav>
+
+
+        { isAuthenticated ? <NormalNav /> : <AuthNav />}
       </Navbar>
     </div>
   );
