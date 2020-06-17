@@ -1,10 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
+import { Redirect } from 'react-router-dom';
 import { useStore } from '../../store/store';
 import { signInUser } from './actions/HomeActions';
-import config from '../../utils/config';
 import { sendData } from '../../utils/api';
-
 
 const CustomUserHook = () => {
   const [state, dispatch] = useStore();
@@ -17,44 +16,41 @@ const CustomUserHook = () => {
       username,
     };
 
-    const url = `${
-      config.apiUrl
-    }/users/login`;
-
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    }).then((response) => response.json())
+    sendData('/users/login', data)
+      .then((response) => response.json())
       .catch((error) => console.error('Error: ', error))
       .then((payload) => {
-        if (payload.token) {
+        if (payload && payload.token) {
           sessionStorage.setItem('access_token', `Token ${
             payload.token
           }`);
           setErrors({});
           signInUser(dispatch, payload);
           // redirect to home
-        } else {
-          setErrors(payload.errors);
+          console.log('redirect Home');
+          return <Redirect to="/" from="/signin"/>;
         }
+        setErrors((payload && payload.errors) || {});
       });
   };
 
   const handleSignUp = (data) => {
-    sendData('/users', data)
-      .then((response) => response.json())
-      .catch((error) => console.error('Error: ', error))
-      .then((payload) => {
-        console.log('redirect to dign in');
-        console.log({ payload });
-      });
+    sendData('/users/', data)
+      .then((response) => {
+        if (response.status === 201) {
+          console.log('Redirect to Sign In');
+          setErrors({});
+          return <Redirect to="/signin" from='/signup'/>;
+        }
+        response.json().then((jsonErrors) => {
+          setErrors(jsonErrors);
+        });
+      })
+      .catch((error) => console.error('Error: ', error));
   };
 
   return {
-    state, handleLogin, errors, handleSignUp,
+    state, handleLogin, errors, handleSignUp, setErrors,
   };
 };
 

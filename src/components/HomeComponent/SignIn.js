@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Container } from '../shared/StyledComponents';
+import { ErrorsComponent, FormGroup} from '../shared';
 import { CustomUserHook } from './customUserHooks';
 
 function SignInComponent() {
@@ -16,32 +17,20 @@ function SignInComponent() {
   return (
     <Container>
       <Form>
-        <ul>
-          {Object.keys(errors).map((key) => (
-            <li>
-              {`${key} : ${errors[key]}`}
-            </li>
-          ))}
-        </ul>
-        <Form.Group>
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            type="username"
-            placeholder="Enter Username"
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </Form.Group>
+        <ErrorsComponent errors={errors} />
+        <FormGroup
+          label="Username"
+          type="username"
+          placeholder="Enter Username"
+          changeHandler={setUsername}
+        />
 
-        <Form.Group>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </Form.Group>
+        <FormGroup
+          label="Password"
+          type="password"
+          placeholder="Enter Password"
+          changeHandler={setPassword}
+        />
 
         <Button variant="primary" type="submit" onClick={(e) => handleLogin(e, username, password)}>
           Submit

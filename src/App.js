@@ -4,7 +4,7 @@ import { ToastProvider } from 'react-toast-notifications';
 
 
 import { NavigationBar } from './components/NavBarComponent';
-import { HomeComponent, SignInComponent } from './components/HomeComponent';
+import { HomeComponent, SignInComponent, SignUpComponent } from './components/HomeComponent';
 
 import './App.css';
 
@@ -20,6 +20,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={HomeComponent} />
               <Route path="/signin" component={SignInComponent} />
+              <Route path="/signup" component={SignUpComponent} />
 
             </Switch>
           </div>

@@ -51,7 +51,7 @@ const sendData = (path, data) => {
     config.apiUrl
   }${path}`;
 
-  fetch(url, {
+  return fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
