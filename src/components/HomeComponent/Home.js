@@ -4,7 +4,6 @@ import { ButtonComponent } from '../shared';
 import { useBusinessHook } from './useBusinessHook';
 import CreateBusinessForm from './partials/CreateBusinessForm';
 import BusinessList from './partials/ListBusinesses';
-import { ErrorsComponent } from '../shared'
 
 function HomeComponent() {
   const [showForm, toggleForm] = useState(false);
@@ -20,8 +19,8 @@ function HomeComponent() {
         message="Register Business"
         name="register_business"
       />
-      {showForm && <CreateBusinessForm submitForm={submitForm} errors={errors} />}
-      {businesses && <BusinessList businesses={businesses} />}
+      {showForm && <CreateBusinessForm submitForm={submitForm} errors={errors} toggleForm={toggleForm}/>}
+      {!showForm && businesses && <BusinessList businesses={businesses} />}
     </div>
   );
 }
