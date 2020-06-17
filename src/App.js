@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import {
-  BrowserRouter, Switch, Route, Redirect,
+  BrowserRouter, Switch, Route, Redirect, useHistory,
 } from 'react-router-dom';
 import { ToastProvider } from 'react-toast-notifications';
 
@@ -11,7 +11,7 @@ import {
   HomeComponent, SignInComponent, SignUpComponent,
 } from './components/HomeComponent';
 import UploadComponent from './components/UploadComponent';
-import BusinessComponent from './components/BusinessComponent'
+import BusinessComponent from './components/BusinessComponent';
 import './App.css';
 
 // checks if user is authenticated

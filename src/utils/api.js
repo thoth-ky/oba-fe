@@ -8,7 +8,7 @@ const updateState = (dispatch, action) => {
 const TOKEN = sessionStorage.getItem('access_token');
 
 const getFromApi = (path, dispatch, actionData, params = {}) => {
-  const url = `${config.apiUrl}${path}`;
+  const url = `${config.apiUrl}${path}?${stringifyParams(params)}`;
 
   fetch(url, {
     method: 'GET',
@@ -16,7 +16,11 @@ const getFromApi = (path, dispatch, actionData, params = {}) => {
       Authorization: TOKEN,
     },
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json();
+      }
+    })
     .then((payload) => {
       const action = {
         ...actionData,

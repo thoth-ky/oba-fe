@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { sendFileToApi } from '../../utils/api';
 
 
@@ -6,6 +7,7 @@ function CustomUploadFileHook(businessId) {
   const [errors, setErrors] = useState({});
   const [file, setFile] = useState();
   const [validated, setValidated] = useState(false);
+  const history = useHistory();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,6 +33,7 @@ function CustomUploadFileHook(businessId) {
       })
       .then(() => {
         console.log('redirect to business dashboard');
+        history.push(`/business/${businessId}`);
       });
   };
 

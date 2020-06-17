@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { useHistory, Redirect } from 'react-router-dom';
 
-import { Redirect } from 'react-router-dom';
 import { useStore } from '../../store/store';
 import { signInUser } from './actions/HomeActions';
 import { sendData } from '../../utils/api';
@@ -8,6 +8,7 @@ import { sendData } from '../../utils/api';
 const CustomUserHook = () => {
   const [state, dispatch] = useStore();
   const [errors, setErrors] = useState({});
+  const history = useHistory();
 
   const handleLogin = (e, username, password) => {
     e.preventDefault();
@@ -26,11 +27,13 @@ const CustomUserHook = () => {
           }`);
           setErrors({});
           signInUser(dispatch, payload);
-          // redirect to home
-          console.log('redirect Home');
-          return <Redirect to="/" from="/signin"/>;
         }
         setErrors((payload && payload.errors) || {});
+      })
+      .then(() => {
+        // redirect to home
+        console.log('redirect Home');
+        history.push('/');
       });
   };
 
@@ -38,14 +41,13 @@ const CustomUserHook = () => {
     sendData('/users/', data)
       .then((response) => {
         if (response.status === 201) {
-          console.log('Redirect to Sign In');
           setErrors({});
-          return <Redirect to="/signin" from='/signup'/>;
         }
         response.json().then((jsonErrors) => {
           setErrors(jsonErrors);
         });
       })
+      .then(() => history.push('/signin'))
       .catch((error) => console.error('Error: ', error));
   };
 

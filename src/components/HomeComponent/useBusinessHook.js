@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { sendData, getFromApi } from '../../utils/api';
 import { useStore } from '../../store/store';
-import { updateBusinesses, updateCurrentBusiness } from './actions/HomeActions';
+import { updateCurrentBusiness } from './actions/HomeActions';
 
 function useBusinessHook() {
   const [errors, setErrors] = useState({});
   const [state, dispatch] = useStore();
-  const { businesses = [], currentBusiness = {} } = state;
+  const { businesses = [], user } = state;
 
   const submitForm = (data) => {
     sendData('/business/', data)
@@ -33,8 +33,8 @@ function useBusinessHook() {
 
   useEffect(() => {
     getAllBusinesses();
-  }, []);
-  console.log(state);
+  }, [user]);
+
   return {
     submitForm,
     errors,

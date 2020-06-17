@@ -13,15 +13,15 @@ const updateBusinesses = (dispatch, data = []) => {
     payload: data,
   };
   dispatch(actionData);
-}
+};
 
-const updateCurrentBusiness = (dispatch, data={})=> {
+const updateCurrentBusiness = (dispatch, data = {}) => {
   const actionData = {
     type: 'SET_CURRENT_BUSINESS',
     payload: data,
   };
   dispatch(actionData);
-}
+};
 
 export {
   signInUser,

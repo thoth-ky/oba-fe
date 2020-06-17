@@ -21,7 +21,7 @@ function HomeComponent() {
         name="register_business"
       />
       {showForm && <CreateBusinessForm submitForm={submitForm} errors={errors} />}
-      <BusinessList businesses={businesses} />
+      {businesses && <BusinessList businesses={businesses} />}
     </div>
   );
 }
