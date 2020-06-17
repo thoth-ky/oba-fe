@@ -2,7 +2,7 @@ const initialState = {
   user: {},
   currentBusiness: {},
   businesses: [],
-  transactions: [],
+  transactionsSummary: {},
 };
 
 export { initialState };

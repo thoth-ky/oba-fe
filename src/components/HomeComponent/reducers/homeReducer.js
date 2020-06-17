@@ -13,7 +13,6 @@ const userReducer = (state, action) => {
 const businessesReducer = (state, action) => {
   switch (action.type) {
     case 'GET_BUSINESSES':
-      console.log({state}, {action})
       return action.payload;
 
     default:
