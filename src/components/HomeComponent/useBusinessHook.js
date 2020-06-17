@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { sendData, getFromApi } from '../../utils/api';
 import { useStore } from '../../store/store';
-import { updateCurrentBusiness } from './actions/HomeActions';
 
 function useBusinessHook() {
   const [errors, setErrors] = useState({});
   const [state, dispatch] = useStore();
   const { businesses = [], user } = state;
+  const history = useHistory();
 
   const submitForm = (data) => {
     sendData('/business/', data)
@@ -19,7 +20,7 @@ function useBusinessHook() {
         });
       })
       .then((payload) => {
-        updateCurrentBusiness(dispatch, payload);
+        history.push(`/business/${payload.id}`);
       });
   };
 
@@ -41,7 +42,6 @@ function useBusinessHook() {
     businesses,
   };
 }
-
 
 export {
   useBusinessHook,

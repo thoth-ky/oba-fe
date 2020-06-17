@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Container } from '../shared/StyledComponents';
 import { ButtonComponent } from '../shared';
 import { useBusinessHook } from './useBusinessHook';
 import CreateBusinessForm from './partials/CreateBusinessForm';
@@ -19,7 +18,13 @@ function HomeComponent() {
         message="Register Business"
         name="register_business"
       />
-      {showForm && <CreateBusinessForm submitForm={submitForm} errors={errors} toggleForm={toggleForm}/>}
+      {showForm && (
+      <CreateBusinessForm
+        submitForm={submitForm}
+        errors={errors}
+        toggleForm={toggleForm}
+      />
+      )}
       {!showForm && businesses && <BusinessList businesses={businesses} />}
     </div>
   );

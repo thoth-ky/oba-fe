@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Col } from 'react-bootstrap';
-import Countries from 'react-select-country';
 import { FormGroup } from '../../shared';
 
-const CreateBusinessForm = ({ submitForm }) => {
+const CreateBusinessForm = ({ submitForm, toggleForm }) => {
   const [businessName, setBusinessName] = useState('');
   const [businessAbrbreviation, setBusinessAbrbreviation] = useState('');
   const [companyAddress, setCompanyAddress] = useState('');
@@ -22,7 +21,6 @@ const CreateBusinessForm = ({ submitForm }) => {
 
     if (form.checkValidity() === false) {
       event.stopPropagation();
-      return null;
     }
 
 
@@ -35,7 +33,7 @@ const CreateBusinessForm = ({ submitForm }) => {
       entity,
       accounting_software: accountingSoftware,
     };
-    
+
     setValidated(true);
     submitForm(data);
   };
@@ -125,10 +123,18 @@ const CreateBusinessForm = ({ submitForm }) => {
           changeHandler={setAccountingSoftware}
         />
       </Form.Row>
-
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
+      <Form.Row>
+        <Col>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Col>
+        <Col>
+          <Button variant="danger" type="button" onClick={() => toggleForm(false)}>
+            Cancel
+          </Button>
+        </Col>
+      </Form.Row>
     </Form>
   );
 };
