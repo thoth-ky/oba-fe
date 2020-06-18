@@ -1,3 +1,3 @@
 export default {
-  apiUrl: 'http://localhost:9000', // process.env.API_URL,
+  apiUrl: process.env.REACT_APP_API_URL,
 };
