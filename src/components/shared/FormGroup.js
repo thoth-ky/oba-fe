@@ -1,6 +1,5 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import { Col } from 'react-bootstrap';
 
 const Options = ({ choices = [], defaultChoice, changeHandler }) => (
   <Form.Control as="select" onChange={(e) => changeHandler(e.target.value)} required>

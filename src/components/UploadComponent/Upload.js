@@ -18,7 +18,7 @@ function UploadComponent({ match }) {
 
 
   return (
-    <Container style={{height: 'auto'}}>
+    <Container style={{ height: 'auto' }}>
       <ErrorsComponent errors={errors} />
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Form.Group>

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
 import {
-  BrowserRouter, Switch, Route, Redirect, useHistory,
+  BrowserRouter, Switch, Route, Redirect,
 } from 'react-router-dom';
 import { ToastProvider } from 'react-toast-notifications';
 
