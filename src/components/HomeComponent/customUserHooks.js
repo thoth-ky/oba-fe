@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
+/* eslint-disable no-console */
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { useStore } from '../../store/store';
 import { signInUser } from './actions/HomeActions';
 import { sendData } from '../../utils/api';
 
-const CustomUserHook = () => {
+const CustomUserHook = (setLoggedIn) => {
   const [state, dispatch] = useStore();
   const [errors, setErrors] = useState({});
   const history = useHistory();
@@ -31,8 +32,7 @@ const CustomUserHook = () => {
         setErrors((payload && payload.errors) || {});
       })
       .then(() => {
-        // redirect to home
-        console.log('redirect Home');
+        setLoggedIn(true);
         history.push('/');
       });
   };

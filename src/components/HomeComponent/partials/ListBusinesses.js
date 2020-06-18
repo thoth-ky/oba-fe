@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 const BusinessList = (businesses) => {
   const { businesses: businessData = [] } = businesses;
-  console.log({ businessData });
   return (
     <Table style={{ width: '100%' }} striped bordered hover>
       <thead>

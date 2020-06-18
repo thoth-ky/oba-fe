@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 function NavigationBar({ isAuthenticated }) {
+  useEffect(() => {
+
+  }, [isAuthenticated]);
   const AuthNav = () => (
     <Nav className="mr-auto">
       <Nav.Link as={Link} to="/signin">SignIn</Nav.Link>
@@ -23,7 +26,7 @@ function NavigationBar({ isAuthenticated }) {
         expand="sm"
         fixed="sticky"
         variant="dark"
-        style={{ display: 'grid', justifyContent: 'center', width: '100%' }}
+
       >
         <Navbar.Brand
           as={Link}

@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter, Switch, Route, Redirect, useHistory,
 } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { ToastProvider } from 'react-toast-notifications';
 
 import { NavigationBar } from './components/NavBarComponent';
 import {
-  HomeComponent, SignInComponent, SignUpComponent,
+  HomeComponent, SignInComponent, SignUpComponent, SignOutComponent,
 } from './components/HomeComponent';
 import UploadComponent from './components/UploadComponent';
 import BusinessComponent from './components/BusinessComponent';
@@ -27,6 +27,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(isAuthenticated());
+  useEffect(() => {
+
+  }, [loggedIn]);
   return (
     <BrowserRouter>
       <ToastProvider placement="top-center">
@@ -37,8 +41,9 @@ function App() {
           <div className="App-Body">
             <Switch>
               <PrivateRoute exact path="/" component={HomeComponent} />
-              <Route path="/signin" component={SignInComponent} />
+              <Route path="/signin" render={() => <SignInComponent setLoggedIn={setLoggedIn} />} />
               <Route path="/signup" component={SignUpComponent} />
+              <PrivateRoute path="/signout" component={SignOutComponent} />
               <PrivateRoute path="/business/:id/upload" component={UploadComponent} />
               <PrivateRoute path="/business/:id" component={BusinessComponent} />
             </Switch>

@@ -1,10 +1,11 @@
 /* eslint-disable camelcase */
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import isEmpty from 'is-empty';
 import { Container } from '../shared/StyledComponents';
-import { ErrorsComponent, FormGroup} from '../shared';
+import { ErrorsComponent, FormGroup } from '../shared';
 import { CustomUserHook } from './customUserHooks';
 
 
@@ -78,6 +79,10 @@ function SignUpComponent() {
         <Button variant="primary" type="submit" onClick={(e) => onSignUp(e)}>
           Sign Up
         </Button>
+        <p>
+          Already have an account?
+          <Link to="/signin"> Sign In</Link>
+        </p>
       </Form>
     </Container>
   );
