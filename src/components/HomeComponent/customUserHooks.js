@@ -18,24 +18,22 @@ const CustomUserHook = (setLoggedIn) => {
     };
 
     sendData('/users/login', data)
-      .then((response) => response.json())
-      .catch((error) => console.error('Error: ', error))
-      .then((payload) => {
-        console.log({payload})
-        if (payload && payload.token) {
-          sessionStorage.setItem('access_token', `Token ${
-            payload.token
-          }`);
-          setErrors({});
-          signInUser(dispatch, payload);
-          setLoggedIn(true);
-          history.push('/');
-        }
-        setErrors((payload && payload.errors) || {});
+      .then((response) =>{
+        response.json()
+        .then((payload)=> {
+          if (payload && payload.token) {
+            sessionStorage.setItem('access_token', `Token ${
+              payload.token
+            }`);
+            setErrors({});
+            signInUser(dispatch, payload);
+            setLoggedIn(true);
+            window.location.replace('/')
+          }
+          setErrors((payload && payload.errors) || {});
+        })
       })
-      .then(() => {
-        
-      });
+      .catch((error) => console.error('Error: ', error));
   };
 
   const handleSignUp = (data) => {

@@ -13,20 +13,14 @@ function useBusinessHook() {
     sendData('/business/', data)
       .then((response) => {
         if (response.status === 201) {
-          return response.json();
+          return response.json().then((payload)=> {
+            history.push(`/business/${payload.id}`);
+          })
         }
         response.json().then((jsonErrors) => {
-          console.log({jsonErrors})
           setErrors(jsonErrors);
         });
       })
-      .then((payload) => {
-        console.log({payload})
-        if(payload && payload.if){
-          history.push(`/business/${payload.id}`);
-        }
-        
-      });
   };
 
   const getAllBusinesses = () => {
