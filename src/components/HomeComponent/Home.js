@@ -8,14 +8,14 @@ function HomeComponent() {
   const [showForm, toggleForm] = useState(false);
 
   const { submitForm, errors, businesses } = useBusinessHook();
-  // debugger
+
   return (
     <div>
       <ButtonComponent
         size="lg"
         buttonType="primary"
         onClickEvent={(e) => toggleForm(!showForm)}
-        message="Register Business"
+        message="Register New Business"
         name="register_business"
       />
       {showForm && (

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import DateRangePicker from 'react-bootstrap-daterangepicker';
 import { useBusinessHook } from './useBusinessHook';
 import { Container } from '../shared/StyledComponents';
 import { BarChart, PieChart } from '../shared/charts';
@@ -17,27 +18,42 @@ function BusinessComponent({ match }) {
     itemsBilledByQuantity,
     itemsOrderedByValue,
     itemsBilledByValue,
+    setFrom,
+    setTo,
   } = useBusinessHook(businessId);
 
-  console.log({ itemsOrderedByQuantity });
-  console.log({ itemsBilledByQuantity });
-  console.log({ itemsOrderedByValue });
-  console.log({ itemsBilledByValue });
-
+  const handleApply = (event, picker) => {
+    const { startDate, endDate } = picker;
+    const start = startDate.format('YYYY-MM-DD');
+    const end = endDate.format('YYYY-MM-DD');
+    setFrom(start);
+    setTo(end);
+  };
 
   return (
     <Container>
       <h2>{currentBusiness.name}</h2>
-      <Button
-        variant="primary"
-        as={Link}
-        to={{
-          pathname: `/business/${businessId}/upload`,
-          businessId,
-        }}
-      >
-        Upload Template
-      </Button>
+      <div style={{ width: '100%' }}>
+        <div style={{ float: 'left' }}>
+          <DateRangePicker startDate="1/1/2020" endDate="31/05/2014" onApply={handleApply}>
+            <Button>Choose Dates</Button>
+          </DateRangePicker>
+        </div>
+        <Button
+          variant="primary"
+          as={Link}
+          to={{
+            pathname: `/business/${businessId}/upload`,
+            businessId,
+          }}
+          style={{
+            float: 'right',
+            left: '20%',
+          }}
+        >
+          Upload Template
+        </Button>
+      </div>
       <Row>
         {pieChartData && (
         <PieChart

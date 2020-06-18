@@ -1,10 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useStore } from '../../store/store';
 import { getFromApi } from '../../utils/api';
 
 function useBusinessHook(businessId) {
   const [state, dispatch] = useStore();
-  console.log({ state });
+  const [fromDate, setFrom] = useState('');
+  const [toDate, setTo] = useState('');
+
   const {
     currentBusiness = {},
     transactionsSummary: {
@@ -31,13 +33,17 @@ function useBusinessHook(businessId) {
     const actionData = {
       type: 'SET_TRANSACTIONS_SUMMARY',
     };
-    getFromApi(`/business/${businessId}/dashboard`, dispatch, actionData);
+    const params = {
+      to: toDate,
+      from: fromDate,
+    };
+    getFromApi(`/business/${businessId}/dashboard`, dispatch, actionData, params);
   };
 
   useEffect(() => {
     getBusinessDetails();
     getDashboardData();
-  }, [businessId]);
+  }, [businessId, fromDate, toDate]);
 
   const getPieChartData = ({ amount_in: amountIn, bills_due: billsDue }) => ({
     datasets: [{
@@ -51,8 +57,6 @@ function useBusinessHook(businessId) {
         '#36A2EB',
       ],
     }],
-
-    // These labels appear in the legend and in the tooltips when hovering different arcs
     labels: [
       'Incoming',
       'Outgoing',
@@ -86,6 +90,8 @@ function useBusinessHook(businessId) {
     itemsBilledByQuantity: getBarChartData(top5BilledByQuantity),
     itemsOrderedByValue: getBarChartData(top5OrderedByValue),
     itemsBilledByValue: getBarChartData(top5BilledByValue),
+    setTo,
+    setFrom,
   };
 }
 
