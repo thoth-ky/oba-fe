@@ -11,8 +11,7 @@ const CustomUserHook = (setLoggedIn) => {
   const [errors, setErrors] = useState({});
   const history = useHistory();
 
-  const handleLogin = (e, username, password) => {
-    e.preventDefault();
+  const handleLogin = (username, password) => {
     const data = {
       password,
       username,
@@ -22,18 +21,20 @@ const CustomUserHook = (setLoggedIn) => {
       .then((response) => response.json())
       .catch((error) => console.error('Error: ', error))
       .then((payload) => {
+        console.log({payload})
         if (payload && payload.token) {
           sessionStorage.setItem('access_token', `Token ${
             payload.token
           }`);
           setErrors({});
           signInUser(dispatch, payload);
+          setLoggedIn(true);
+          history.push('/');
         }
         setErrors((payload && payload.errors) || {});
       })
       .then(() => {
-        setLoggedIn(true);
-        history.push('/');
+        
       });
   };
 
@@ -42,12 +43,12 @@ const CustomUserHook = (setLoggedIn) => {
       .then((response) => {
         if (response.status === 201) {
           setErrors({});
+          history.push('/signin')
         }
         response.json().then((jsonErrors) => {
           setErrors(jsonErrors);
         });
       })
-      .then(() => history.push('/signin'))
       .catch((error) => console.error('Error: ', error));
   };
 

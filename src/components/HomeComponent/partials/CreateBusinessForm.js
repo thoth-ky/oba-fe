@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { Col } from 'react-bootstrap';
 import { FormGroup } from '../../shared';
 
-const CreateBusinessForm = ({ submitForm, toggleForm }) => {
+const CreateBusinessForm = ({ submitForm, errors, toggleForm }) => {
   const [businessName, setBusinessName] = useState('');
   const [businessAbrbreviation, setBusinessAbrbreviation] = useState('');
   const [companyAddress, setCompanyAddress] = useState('');
@@ -58,6 +58,7 @@ const CreateBusinessForm = ({ submitForm, toggleForm }) => {
 
   const ACCOUNTS_SOFTWARE = [{ value: 'QB', key: 'Quickbooks' }, { value: 'EX', key: 'Excel SpreadSheets' }];
   return (
+    <div>
     <Form noValidate validated={validated} onSubmit={handleSubmit} style={{ wisth: '100%' }}>
       <Form.Row>
         <FormGroup
@@ -66,6 +67,8 @@ const CreateBusinessForm = ({ submitForm, toggleForm }) => {
           type="text"
           placeholder="Enter Enter Business Name"
           changeHandler={setBusinessName}
+          isInvalid={!!errors.name}
+          error={!!errors.name && errors.name}
         />
         <FormGroup
           as={Col}
@@ -74,6 +77,8 @@ const CreateBusinessForm = ({ submitForm, toggleForm }) => {
           placeholder="Enter Enter Business Abbr"
           changeHandler={setBusinessAbrbreviation}
           maxLength={5}
+          isInvalid={!!errors.business_abbreviation}
+          error={!!errors.business_abbreviation && errors.business_abbreviation}
         />
         <FormGroup
           as={Col}
@@ -81,6 +86,8 @@ const CreateBusinessForm = ({ submitForm, toggleForm }) => {
           type="text"
           placeholder="Enter Company Address"
           changeHandler={setCompanyAddress}
+          isInvalid={!!errors.company_address}
+          error={!!errors.company_address && errors.company_address}
         />
       </Form.Row>
       <Form.Row>
@@ -91,6 +98,8 @@ const CreateBusinessForm = ({ submitForm, toggleForm }) => {
           choices={COUNTRIES}
           defaultChoice="KE"
           changeHandler={setCountry}
+          isInvalid={!!errors.country}
+          error={!!errors.country && errors.country}
         />
 
         <FormGroup
@@ -100,6 +109,8 @@ const CreateBusinessForm = ({ submitForm, toggleForm }) => {
           type="select"
           placeholder="Enter annualSalesRevenue"
           changeHandler={setAnnualSalesRevenue}
+          isInvalid={!!errors.annual_sales_revenue}
+          error={!!errors.annual_sales_revenue && errors.annual_sales_revenue}
         />
 
         <FormGroup
@@ -110,6 +121,8 @@ const CreateBusinessForm = ({ submitForm, toggleForm }) => {
           defaultChoice="R"
           placeholder="Select Entity"
           changeHandler={setEntity}
+          isInvalid={!!errors.entity}
+          error={!!errors.entity && errors.entity}
         />
       </Form.Row>
       <Form.Row>
@@ -121,6 +134,8 @@ const CreateBusinessForm = ({ submitForm, toggleForm }) => {
           choices={ACCOUNTS_SOFTWARE}
           placeholder="Select Accounting Software"
           changeHandler={setAccountingSoftware}
+          isInvalid={!!errors.accounting_software}
+          error={!!errors.accounting_software && errors.accounting_software}
         />
       </Form.Row>
       <Form.Row>
@@ -136,6 +151,7 @@ const CreateBusinessForm = ({ submitForm, toggleForm }) => {
         </Col>
       </Form.Row>
     </Form>
+    </div>
   );
 };
 

@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import isEmpty from 'is-empty';
 import { Container } from '../shared/StyledComponents';
-import { ErrorsComponent, FormGroup } from '../shared';
+import { FormGroup } from '../shared';
 import { CustomUserHook } from './customUserHooks';
 
 
@@ -15,6 +15,7 @@ function SignUpComponent() {
   const [email, setEmail] = useState('');
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
+  const [validated, setValidated] = useState(false)
 
   const {
     handleSignUp,
@@ -22,30 +23,37 @@ function SignUpComponent() {
     setErrors,
   } = CustomUserHook();
 
-  const onSignUp = (e) => {
-    e.preventDefault();
-    if (isEmpty(password) || isEmpty(username) || isEmpty(email) || isEmpty(first_name) || isEmpty(last_name)) {
-      setErrors({ signup: 'All Fields are required' });
-    } else {
-      const data = {
-        password,
-        username,
-        email,
-        first_name,
-        last_name,
-      };
-      handleSignUp(data);
+  const onSignUp = (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+
+    if (form.checkValidity() === false) {
+      console.log('Invalid')
+      event.stopPropagation();
     }
+    console.log('Did We??')
+    console.log(form.checkValidity())
+    setValidated(true);
+    const data = {
+      password,
+      username,
+      email,
+      first_name,
+      last_name,
+    };
+    handleSignUp(data);
   };
+  console.log({errors})
   return (
     <Container>
-      <Form>
-        <ErrorsComponent errors={errors} />
+      <Form noValidate validated={validated} onSubmit={onSignUp}>
         <FormGroup
           label="Username"
           type="username"
           placeholder="Enter Username"
           changeHandler={setUsername}
+          isInvalid={!!errors.username}
+          error={!!errors.username && errors.username}
         />
 
         <FormGroup
@@ -53,6 +61,8 @@ function SignUpComponent() {
           type="text"
           placeholder="Enter First Name"
           changeHandler={setFirstName}
+          isInvalid={!!errors.first_name}
+          error={!!errors.first_name && errors.first_name}
         />
 
         <FormGroup
@@ -60,6 +70,8 @@ function SignUpComponent() {
           type="text"
           placeholder="Enter Last Name"
           changeHandler={setLastName}
+          isInvalid={!!errors.first_name}
+          error={!!errors.last_name && errors.last_name}
         />
 
         <FormGroup
@@ -67,6 +79,8 @@ function SignUpComponent() {
           type="email"
           placeholder="Enter Email"
           changeHandler={setEmail}
+          isInvalid={!!errors.email}
+          error={!!errors.email && errors.email}
         />
 
         <FormGroup
@@ -74,9 +88,11 @@ function SignUpComponent() {
           type="password"
           placeholder="Enter Password"
           changeHandler={setPassword}
+          isInvalid={!!errors.password}
+          error={!!errors.password && errors.password}
         />
 
-        <Button variant="primary" type="submit" onClick={(e) => onSignUp(e)}>
+        <Button variant="primary" type="submit">
           Sign Up
         </Button>
         <p>

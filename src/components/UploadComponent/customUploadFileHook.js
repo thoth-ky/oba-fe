@@ -14,8 +14,7 @@ function CustomUploadFileHook(businessId) {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.stopPropagation();
-      setErrors({ File: 'File is Required' });
-      return null;
+      setErrors({ non_field_erros: 'File is Required' });
     }
     setValidated(true);
     const path = `/transactions/business/${businessId}/csv_upload`;
@@ -25,16 +24,12 @@ function CustomUploadFileHook(businessId) {
     sendFileToApi(path, formData)
       .then((response) => {
         if (response.status === 201) {
-          return response.json();
+          history.push(`/business/${businessId}`);
         }
         response.json().then((payload) => {
           setErrors(payload);
         });
       })
-      .then(() => {
-        console.log('redirect to business dashboard');
-        history.push(`/business/${businessId}`);
-      });
   };
 
   const handleFileChange = (event) => {

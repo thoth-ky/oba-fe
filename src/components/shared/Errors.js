@@ -1,13 +1,14 @@
 import React from 'react';
 
-const Errors = ({ errors }) => (
+const Errors = ({ errors = [] }) =>{
+  return (
   <ul>
-    {Object.keys(errors).map((key) => (
-      <li key={key}>
-        {`${key} : ${errors[key]}`}
+    {errors.map((error) => (
+      <li key={error} style={{color: 'red'}}>
+        {error}
       </li>
     ))}
   </ul>
-);
+)}
 
 export default Errors;

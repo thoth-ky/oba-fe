@@ -16,11 +16,16 @@ function useBusinessHook() {
           return response.json();
         }
         response.json().then((jsonErrors) => {
+          console.log({jsonErrors})
           setErrors(jsonErrors);
         });
       })
       .then((payload) => {
-        history.push(`/business/${payload.id}`);
+        console.log({payload})
+        if(payload && payload.if){
+          history.push(`/business/${payload.id}`);
+        }
+        
       });
   };
 
